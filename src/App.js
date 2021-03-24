@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { searchLocation,
          fetchFiveDayForecast,
          searchGeoLocation,
-         fetchCurrentConditions } from './actions/index';
+         fetchCurrentConditions,
+         fetchTopFifty,
+         fetchHourlyForecast } from './actions/index';
 import DayForecastDetails from './components/dayForecastDetails';
 import ForecastList from './components/forecastList';
 import Footer from './components/footer';
@@ -14,41 +16,47 @@ import './App.css';
 function App() {
 
   const [ value, setValue ] = useState('');
+  const [ currentConditions, setCurrentConditions ] = useState({});
+  const [ hourlyForecast, setHourlyForecast ] = useState('');
   const [ dayForecast, setDayForecast ] = useState({});
   const [ futureForecast, setFutureForecast ] = useState([]);
   const [ forecastQuery, setForecastQuery ] = useState('');
-  const [ currentConditions, setCurrentConditions ] = useState({});
   const [ status, setStatus ] = useState('')
 
   useEffect(() => {
     console.log(process.env.NODE_ENV);
     console.log(process.env.REACT_APP_ACCU_API_KEY);
+    // fetchTopFifty().promise.then(r => {
+    //   handleForecasts(r[Math.floor(Math.random() *50)].Key)
+    // })
   }, [])
 
   const handleForecasts = locationKey => {
     fetchCurrentConditions(locationKey).promise.then(r =>{
-      console.log(r)
-      setCurrentConditions(r[0])
+      console.log(r);
+      setCurrentConditions(r[0]);
       fetchFiveDayForecast(locationKey).promise.then(r =>{
-        console.log(r)
+        console.log(r);
         setDayForecast(r.DailyForecasts[0]);
         setFutureForecast(r.DailyForecasts.slice(1, 5));
-        setStatus('fetched')
+        fetchHourlyForecast(locationKey).promise.then(r => {
+          console.log(r);
+          setHourlyForecast(r);
+          setStatus('fetched');
+        })
       })
     })
+
   }
 
 
   const handleSearch = value => {
-    console.log(value)
     searchLocation(value).promise.then(r => {
-      console.log(r);
       if (r[0]) {
-        console.log(r[0])
-        handleForecasts(r[0].Key)
+        console.log(r[0]);
+        handleForecasts(r[0].Key);
       } else {
-        console.log(r[0])
-        alert(`Sorry, no such place as ${value}`)
+        alert(`Sorry, no such place as ${value}`);
       }
     })
   }
@@ -59,7 +67,6 @@ function App() {
   }
 
   const handleSubmit = event => {
-    console.log(value)
     setForecastQuery(value);
     handleSearch(value);
     event.preventDefault();
@@ -74,9 +81,8 @@ function App() {
   const success = pos => {
     var crd = pos.coords;
     searchGeoLocation(crd.latitude, crd.longitude).promise.then(r =>{
-      console.log(r);
-      setForecastQuery(r.LocalizedName)
-      handleForecasts(r.Key)
+      setForecastQuery(r.LocalizedName);
+      handleForecasts(r.Key);
     })
   }
 
@@ -86,21 +92,20 @@ function App() {
 
 
   const handleClick = event => {
-    console.log('click');
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
 
 
   return (
-    <div className="App h-screen flex flex-col">
-      <header className="flex mb-6">
-        <div className="logo pl-3 pt-3 w-2/6">
+    <div className="App flex flex-col">
+      <header className="block md:flex justify-between">
+        <div className="logo hidden md:block pl-3 pt-3 md:w-2/6">
           <a rel="noopener noreferrer" target="_blank" href="https://jupiterslb.com/">
             <img className="h-12 w-12" src={ logo } alt="logo" />
           </a>
         </div>
-        <p className="text-purple-500 text-3xl pt-3 font-bold w-2/6">JupitersLB Weather Api</p>
-        <div className="flex pt-3 w-2/6 justify-end pr-6">
+        <p className="text-purple-500 mx-auto text-3xl pb-3 md:pb-0 pt-3 font-bold w-5/6 md:w-2/6">JupitersLB Weather Api</p>
+        <div className="flex mx-auto w-5/6 pt-3 md:w-2/6 justify-end pr-6">
           <form className="w-full max-w-sm" onSubmit={handleSubmit}>
             <div className="md:flex md:items-center mb-6">
               <div className="md:w-1/3">
@@ -125,8 +130,11 @@ function App() {
         <div className="day-forecast">
           {status === 'fetched' ? <DayForecastDetails query={forecastQuery} current={currentConditions} forecast={dayForecast} /> : ''}
         </div>
-        <div className="future-forecast pt-6">
-          {status === 'fetched' ? <ForecastList forecast={futureForecast} /> : ''}
+        <div className="hourly-forecast pt-3">
+          {status === 'fetched' ? <ForecastList forecast={hourlyForecast} type="hours" /> : ''}
+        </div>
+        <div className="future-forecast pt-3">
+          {status === 'fetched' ? <ForecastList forecast={futureForecast} type="days" /> : ''}
         </div>
       </div>
       <footer>

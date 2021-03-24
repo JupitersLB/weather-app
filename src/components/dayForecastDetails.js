@@ -11,7 +11,7 @@ const DayForecastDetails = props => {
             <img className="mx-auto h-full object-cover" src={loadImage(`${current.WeatherIcon}.png`)} alt="weather-icon"/>
           </div>
           <p>{current.WeatherText}</p>
-          <div className="details pt-3 flex">
+          <div className="details pt-1 flex">
             <div className="left w-1/2">
               <p className="pt-1"><b>Temp:</b> {current.Temperature.Metric.Value}<span>&#176;</span>c</p>
               <p className="pt-1"><b>Feels:</b> {current.RealFeelTemperature.Metric.Value}<span>&#176;</span>c</p>

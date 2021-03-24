@@ -33,3 +33,19 @@ export const fetchCurrentConditions = locationId => {
                     .then(r => r.json());
   return { promise }
 }
+
+export const fetchTopFifty = () => {
+  const queryParams = `apikey=${apiKey}&details=true`
+  const url = `${baseUrl}locations/v1/topcities/?${queryParams}`
+  const promise = fetch(url, { credentials: "same-origin"})
+                    .then(r => r.json());
+  return { promise }
+}
+
+export const fetchHourlyForecast = locationId => {
+  const queryParams = `apikey=${apiKey}&details=true&metric=true`
+  const url = `${baseUrl}forecasts/v1/hourly/12hour/${locationId}?${queryParams}`
+  const promise = fetch(url, { credentials: "same-origin"})
+                    .then(r => r.json());
+  return { promise }
+}
