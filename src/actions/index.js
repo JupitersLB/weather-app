@@ -1,5 +1,5 @@
 const apiKey = process.env.REACT_APP_ACCU_API_KEY
-const baseUrl = 'http://dataservice.accuweather.com/'
+const baseUrl = 'https://dataservice.accuweather.com/'
 
 export const searchLocation = location => {
   const queryParams = `apikey=${apiKey}&q=${location}&offset=5`
