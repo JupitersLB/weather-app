@@ -26,9 +26,12 @@ function App() {
   useEffect(() => {
     console.log(process.env.NODE_ENV);
     console.log(process.env.REACT_APP_ACCU_API_KEY);
-    // fetchTopFifty().promise.then(r => {
-    //   handleForecasts(r[Math.floor(Math.random() *50)].Key)
-    // })
+    fetchTopFifty().promise.then(r => {
+      console.log(r)
+      let obj = r[Math.floor(Math.random() *50)];
+      handleForecasts(obj.Key);
+      setForecastQuery(obj.LocalizedName);
+    })
   }, [])
 
   const handleForecasts = locationKey => {
@@ -107,7 +110,7 @@ function App() {
         <p className="text-purple-500 mx-auto text-3xl pb-3 md:pb-0 pt-3 font-bold w-5/6 md:w-2/6">JupitersLB Weather Api</p>
         <div className="flex mx-auto w-5/6 pt-3 md:w-2/6 justify-end pr-6">
           <form className="w-full max-w-sm" onSubmit={handleSubmit}>
-            <div className="md:flex md:items-center mb-6">
+            <div className="flex items-center mb-6">
               <div className="md:w-1/3">
                 <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">City: </label>
               </div>

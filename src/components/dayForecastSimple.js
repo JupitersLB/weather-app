@@ -11,19 +11,19 @@ const DayForecastSimple = props => {
         <div className="card-header pb-2">
           <p className="text-lg font-bold">{day}</p>
           <div className="max-min flex justify-center">
-            <p>{forecast.Temperature.Maximum.Value}<span>&#176;</span>c |</p>
-            <p className="pl-1">{forecast.Temperature.Minimum.Value}<span>&#176;</span>c</p>
+            <p>{forecast.Temperature.Maximum.Value}<span>&#176;</span>c</p>
+            <p className="pl-1 hidden md:block">| {forecast.Temperature.Minimum.Value}<span>&#176;</span>c</p>
           </div>
         </div>
         <div className="card-body flex justify-center">
-          <div className="w-1/2">
+          <div className="sm:w-1/2">
             <p className="font-bold pb-2">Day</p>
             <div className="weather-icon h-20">
               <img className="mx-auto h-full object-cover" src={loadImage(`${forecast.Day.Icon}.png`)} alt="weather-icon"/>
             </div>
             <p>{forecast.Day.IconPhrase}</p>
           </div>
-          <div className="w-1/2">
+          <div className="hidden md:block md:w-1/2">
             <p className="font-bold pb-2">Night</p>
             <div className="weather-icon h-20">
               <img className="mx-auto h-full object-cover" src={loadImage(`${forecast.Night.Icon}.png`)} alt="weather-icon"/>

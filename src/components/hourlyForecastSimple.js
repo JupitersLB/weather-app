@@ -2,7 +2,7 @@ const HourlyForecastSimple = props => {
   const { forecast } = props;
   const images = require.context('./../assets/images', true);
   const loadImage = imageName => (images(`./${imageName}`).default);
-  console.log(forecast.DateTime.length)
+
   return (
     <>
       <div className="simple-weather-card rounded-2xl hover:bg-indigo-100 hover:bg-opacity-5 w-3/6 px-3">

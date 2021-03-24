@@ -36,7 +36,7 @@ export const fetchCurrentConditions = locationId => {
 
 export const fetchTopFifty = () => {
   const queryParams = `apikey=${apiKey}&details=true`
-  const url = `${baseUrl}locations/v1/topcities/?${queryParams}`
+  const url = `${baseUrl}locations/v1/topcities/50?${queryParams}`
   const promise = fetch(url, { credentials: "same-origin"})
                     .then(r => r.json());
   return { promise }

@@ -13,7 +13,6 @@ const ForecastList = props => {
   }, [forecast])
 
   const handleClick = event => {
-    console.log(event.currentTarget)
     if (event.currentTarget.classList.contains('left-arrow')) {
       handleLeft(event)
     } else {
@@ -42,7 +41,7 @@ const ForecastList = props => {
 
   return (
     <>
-      <div className="weather-forecast text-purple-500 pt-3 bg-opacity-50 w-3/6 bg-indigo-300 mx-auto rounded-2xl">
+      <div className="weather-forecast text-purple-500 pt-3 bg-opacity-50 w-5/6 md:w-4/6 lg:w-1/2 bg-indigo-300 mx-auto rounded-2xl">
         <div className="weather-forecast-header flex justify-between px-3">
           <div className={leftArrowClass} onClick={handleClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
