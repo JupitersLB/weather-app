@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2'
 
 import { searchLocation,
          fetchFiveDayForecast,
@@ -25,34 +26,35 @@ function App() {
   useEffect(() => {
     console.log(process.env.NODE_ENV);
     console.log(process.env.REACT_APP_ACCU_API_KEY);
-    const handlePlacholder = () => {
-      fetchTopFifty().promise.then(r => {
-        console.log(r);
-        let obj = r[Math.floor(Math.random() *50)];
-        console.log(obj)
-        handleForecasts(obj.Key);
-        setForecastQuery(obj.LocalizedName);
-      })
-    }
-    handlePlacholder()
-  }, [])
+    if (status === null) handlePlacholder()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status])
+
+  const handlePlacholder = () => {
+    fetchTopFifty().promise.then(r => {
+      console.log(r);
+      if (r === undefined) return Promise.reject(sweetError("Error: API has reached its limit"))
+      let obj = r[Math.floor(Math.random() *50)];
+      handleForecasts(obj.Key);
+      setForecastQuery(obj.LocalizedName);
+    })
+  }
 
   const handleForecasts = locationKey => {
     setStatus(0);
     fetchCurrentConditions(locationKey).promise.then(r => {
-      console.log(r)
-      if (r === undefined) return Promise.reject(sweetError('No result'))
+      if (r === undefined) return
       setCurrentConditions(r[0]);
       setStatus(status => status += 1);
     })
     fetchFiveDayForecast(locationKey).promise.then(r => {
-      if (r === undefined) return Promise.reject(sweetError('No result'))
+      if (r === undefined) return
       setDayForecast(r.DailyForecasts[0]);
       setFutureForecast(r.DailyForecasts.slice(1, 5));
       setStatus(status => status += 1);
     })
     fetchHourlyForecast(locationKey).promise.then(r => {
-      if (r === undefined) return Promise.reject(sweetError('No result'))
+      if (r === undefined) return
       setHourlyForecast(r);
       setStatus(status => status += 1);
     })
@@ -60,22 +62,24 @@ function App() {
 
   const handleSearch = value => {
     searchLocation(value).promise.then(r => {
-      if (r) {
-        try {
-          setForecastQuery(value);
-          handleForecasts(r[0].Key);
-        } catch (error) {
-          sweetError(`Error: Can't find ${error}`)
-        }
+      console.log(r)
+      if (r === undefined) {
+        sweetError("Error: API has reached its limit")
+      } else if (r.length === 0) {
+        sweetError(`Error: Can't find ${value}`)
+      } else {
+        setForecastQuery(value);
+        handleForecasts(r[0].Key);
       }
     })
   }
 
   const handleGeoLocation = crd => {
-    searchGeoLocation(crd.latitude, crd.longitude).promise.then(r =>{
-      if (r === undefined) return Promise.reject(sweetError('No result'))
+    searchGeoLocation(crd.latitude, crd.longitude).promise.then(r => {
+      if (r === undefined) return Promise.reject(sweetError("Error: API has reached its limit"))
       setForecastQuery(r.LocalizedName);
       handleForecasts(r.Key);
+      Swal.close();
     })
   }
 

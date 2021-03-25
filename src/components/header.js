@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2'
+
 import logo from '../assets/images/jupiter.png'
 import sweetError from './sweetError';
 
@@ -33,7 +35,18 @@ const Header = props => {
   }
 
   const handleClick = event => {
-    navigator.geolocation.getCurrentPosition(success, error, options);
+    Swal.fire({
+      title: 'Acessing Browser Location',
+      customClass: {
+        htmlContainer: 'text-green-800',
+        title: 'text-green-800',
+      },
+      background: 'rgba(166,181,251, 0.8)',
+      didOpen: () => {
+        navigator.geolocation.getCurrentPosition(success, error, options);
+      }
+    })
+    Swal.showLoading();
   }
 
   return (

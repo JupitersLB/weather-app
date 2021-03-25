@@ -29,7 +29,6 @@ export const searchGeoLocation = (lat, lon) => {
   return { promise }
 }
 
-
 export const fetchFiveDayForecast = locationId => {
   const queryParams = `apikey=${apiKey}&metric=true`
   const url = `${baseUrl}forecasts/v1/daily/5day/${locationId}?${queryParams}`
