@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/images/jupiter.png'
+import sweetError from './sweetError';
 
 const Header = props => {
   const { handleGeoLocation, handleSearch } = props;
@@ -28,6 +29,7 @@ const Header = props => {
 
   const error = err => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
+    sweetError(err.message);
   }
 
   const handleClick = event => {
