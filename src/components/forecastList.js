@@ -4,6 +4,7 @@ import HourlyForecastSimple from './hourlyForecastSimple';
 
 const ForecastList = props => {
   const { forecast, type } = props;
+
   const [ arr, setArr ] = useState([]);
   const [ activeArr, updateActiveArr ] = useState([]);
 

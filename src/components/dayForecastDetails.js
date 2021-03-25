@@ -1,7 +1,9 @@
 const DayForecastDetails = props => {
+  const { forecast, query, current } = props;
+
   const images = require.context('./../assets/images', true);
   const loadImage = imageName => (images(`./${imageName}`).default);
-  const { forecast, query, current } = props;
+
   return (
     <>
       <div className="weather-card text-purple-500 flex py-3 px-1 rounded-2xl justify-center mx-auto w-5/6  md:w-4/6 lg:w-1/2 bg-opacity-50 bg-indigo-300">

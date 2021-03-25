@@ -1,10 +1,12 @@
 const DayForecastSimple = props => {
   const { forecast } = props;
+
   const images = require.context('./../assets/images', true);
   const loadImage = imageName => (images(`./${imageName}`).default);
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const dateObject = new Date(forecast.Date)
   const day = days[dateObject.getDay()]
+
   return (
     <>
       <div className="simple-weather-card rounded-2xl hover:bg-indigo-100 hover:bg-opacity-5 w-3/6 px-2">

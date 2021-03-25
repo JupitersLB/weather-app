@@ -1,7 +1,7 @@
 import { Github, Linkedin, Gmail } from '@icons-pack/react-simple-icons';
 
-
 const Footer = props => {
+
   return (
     <>
       <div className="footer py-2 flex justify-center w-full">
