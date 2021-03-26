@@ -6,36 +6,59 @@ const ForecastList = props => {
   const { forecast, type } = props;
 
   const [ arr, setArr ] = useState([]);
-  const [ activeArr, updateActiveArr ] = useState([]);
+  const [ activeArr, setActiveArr ] = useState([]);
 
   useEffect(() => {
     setArr(forecast);
-    updateActiveArr(forecast.slice(0,3))
+    setActiveArr(forecast.slice(0,3))
   }, [forecast])
 
   const handleClick = event => {
+    // if (event.currentTarget.classList.contains('left-arrow')) {
+    //   handleLeft()
+    // } else {
+    //   handleRight(event)
+    // }
+    let newArr;
+    let idx
     if (event.currentTarget.classList.contains('left-arrow')) {
-      handleLeft(event)
+      idx = arr.indexOf(activeArr[0]) - 1
+      newArr = arr.slice(idx, (idx + 3))
     } else {
-      handleRight(event)
+      idx = arr.indexOf(activeArr[2]) + 2
+      newArr = arr.slice((idx - 3), idx)
     }
+    setActiveArr(newArr);
   }
 
-  const handleLeft = event => {
-    const temp = [...activeArr]
-    temp.pop()
-    let idx = arr.indexOf([...temp].shift())
-    temp.unshift(arr[idx - 1])
-    updateActiveArr(temp)
-  }
+  // const handleDirection = d => {
+  //   let newArr;
+  //   let idx
+  //   if (event.currentTarget.classList.contains('left-arrow')) {
+  //     idx = arr.indexOf(activeArray[0]) - 1
+  //     newArr = arr.slice(idx, (idx + 3))
+  //   } else {
+  //     idx = arr.indexOf(activeArray[2]) + 2
+  //     newArr = arr.slice((idxNew - 3), idxNew)
+  //   }
+  //   setActiveArr(newArr);
+  // }
 
-  const handleRight = event => {
-    const temp = [...activeArr]
-    temp.shift()
-    let idx = arr.indexOf([...temp].pop())
-    temp.push(arr[idx + 1])
-    updateActiveArr(temp)
-  }
+  // const handleDirection = event => {
+  //   const temp = [...activeArr]
+  //   temp.pop()
+  //   let idx = arr.indexOf([...temp].shift())
+  //   temp.unshift(arr[idx - 1])
+  //   updateActiveArr(temp)
+  // }
+
+  // const handleRight = event => {
+  //   const temp = [...activeArr]
+  //   temp.shift()
+  //   let idx = arr.indexOf([...temp].pop())
+  //   temp.push(arr[idx + 1])
+  //   updateActiveArr(temp)
+  // }
 
   const leftArrowClass = activeArr[0] === arr[0] ? 'left-arrow h-8 w-8 invisible' : 'left-arrow h-8 w-8 cursor-pointer'
   const rightArrowClass = activeArr[activeArr.length - 1] === arr[arr.length - 1] ? 'right-arrow h-8 w-8 invisible' : 'right-arrow h-8 w-8 cursor-pointer'

@@ -1,6 +1,8 @@
+import bundleLoader from './bundle-loader'
+
 const HourlyForecastSimple = props => {
   const { forecast } = props;
-  const images = require.context('./../assets/images', true);
+  const images = bundleLoader.importFiles();
   const loadImage = imageName => (images(`./${imageName}`).default);
 
   return (

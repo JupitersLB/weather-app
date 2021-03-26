@@ -1,7 +1,9 @@
+import bundleLoader from './bundle-loader'
+
 const DayForecastSimple = props => {
   const { forecast } = props;
 
-  const images = require.context('./../assets/images', true);
+  const images = bundleLoader.importFiles()
   const loadImage = imageName => (images(`./${imageName}`).default);
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const dateObject = new Date(forecast.Date)
