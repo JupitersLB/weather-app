@@ -85,15 +85,17 @@ const App = () => {
   const childProps = {
     forecastQuery,
     ...currentConditions,
-    ...dayForecast
   }
+
+  // console.log({...currentConditions});
+  // console.log({...dayForecast});
 
   return (
     <div className="App flex flex-col">
       <Header handleGeoLocation={handleGeoLocation} handleSearch={handleSearch} />
       <div className="forecasts flex-grow">
         <div className="day-forecast">
-          {status === 3 ? <DayForecastDetails {...childProps} /> : ''}
+          {status === 3 ? <DayForecastDetails {...childProps} forecast={dayForecast} /> : ''}
         </div>
         <div className="hourly-forecast pt-3">
           {status === 3 ? <ForecastList forecast={hourlyForecast} type="hours" /> : ''}

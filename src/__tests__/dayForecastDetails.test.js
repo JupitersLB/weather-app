@@ -19,11 +19,10 @@ const dayForecast = { Day: {}, Night: {} }
 const childProps = {
   forecastQuery,
   ...currentConditions,
-  ...dayForecast
 }
 
 test('<DayForecastDetails />', () => {
-  const { getByText } = render( <DayForecastDetails {...childProps} />);
+  const { getByText } = render( <DayForecastDetails {...childProps} forecast={dayForecast} />);
 
   getByText('sunny');
 
