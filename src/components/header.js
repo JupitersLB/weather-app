@@ -66,7 +66,7 @@ const Header = props => {
               <div className="md:w-2/3">
                 <input id="new-search" className="bg-indigo-300 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-gray focus:border-purple-500" type="text" value={value} onChange={handleChange} placeholder="Write a city here" />
               </div>
-              <div className="h-8 w-8" onClick={handleClick}>
+              <div className="browser-search-icon h-8 w-8" onClick={handleClick}>
                 <svg className="text-purple-500 pl-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>

@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import Header from '../components/header';
+import Swal from 'sweetalert2'
 
 test('renders components properly', () => {
   const handleSearchMock = jest.fn();
@@ -35,15 +36,17 @@ test('Pressing enter submits value', () => {
 test('clicking on icon searches browser location', () => {
 
   const handleSearchMock = jest.fn();
-  const handleGeoLocationMock = jest.fn()
+  const handleGeoLocationMock = jest.fn();
+  const spy = jest.spyOn(Swal, 'fire')
 
   const wrapper = mount(<Header handleGeoLocation={handleGeoLocationMock} handleSearch={handleSearchMock} />);
 
-  expect(wrapper.find('svg')).toHaveLength(1)
+  const icon = wrapper.find('.browser-search-icon');
+  expect(icon).toHaveLength(1)
 
-  const svg = wrapper.find('svg')
-  svg.simulate('click')
+  icon.simulate('click');
 
-  expect(handleGeoLocationMock).toHaveBeenCalledTimes(1);
+  // handleClick fires a sweetalert while checking for browser location
+  expect(spy).toHaveBeenCalledTimes(1);
 
 })
