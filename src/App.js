@@ -7,7 +7,7 @@ import { searchLocation,
          fetchCurrentConditions,
          fetchTopFifty,
          fetchHourlyForecast } from './actions/index';
-import sweetError from './components/sweetError';
+import sweetError from './utilities/sweetError';
 import Header from './components/header';
 import DayForecastDetails from './components/dayForecastDetails';
 import ForecastList from './components/forecastList';

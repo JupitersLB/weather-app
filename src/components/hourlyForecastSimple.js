@@ -1,9 +1,12 @@
-import bundleLoader from './bundle-loader'
+import bundleLoader from '../utilities/bundleLoader'
 
 const HourlyForecastSimple = props => {
   const { forecast } = props;
-  const images = bundleLoader.importFiles();
-  const loadImage = imageName => (images(`./${imageName}`).default);
+
+  const images = bundleLoader.importFiles()
+  const image = bundleLoader.loadImage(images, `${forecast.WeatherIcon}.png`);
+
+  // const loadImage = imageName => (images(`./${imageName}`).default);
 
   return (
     <>
@@ -17,7 +20,7 @@ const HourlyForecastSimple = props => {
         <div className="card-body flex justify-center">
           <div>
             <div className="weather-icon h-20">
-              <img className="mx-auto h-full object-cover" src={loadImage(`${forecast.WeatherIcon}.png`)} alt="weather-icon"/>
+              <img className="mx-auto h-full object-cover" src={image} alt="weather-icon"/>
             </div>
             <p>{forecast.IconPhrase}</p>
             <p>Chance of rain: {forecast.RainProbability}%</p>

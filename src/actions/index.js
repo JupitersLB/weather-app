@@ -1,4 +1,4 @@
-import sweetError from '../components/sweetError';
+import sweetError from '../utilities/sweetError';
 
 const apiKey = process.env.REACT_APP_ACCU_API_KEY
 const baseUrl = 'https://dataservice.accuweather.com/'

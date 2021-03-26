@@ -1,4 +1,4 @@
-import bundleLoader from './bundle-loader'
+import bundleLoader from '../utilities/bundleLoader'
 
 const DayForecastDetails = props => {
   const { forecastQuery, RelativeHumidity, WeatherIcon, WeatherText, PrecipitationSummary, Wind, UVIndex, RealFeelTemperature, Temperature, Day, Night  } = props;

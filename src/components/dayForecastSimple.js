@@ -1,10 +1,11 @@
-import bundleLoader from './bundle-loader'
+import bundleLoader from '../utilities/bundleLoader'
 
 const DayForecastSimple = props => {
   const { forecast } = props;
 
   const images = bundleLoader.importFiles()
-  const loadImage = imageName => (images(`./${imageName}`).default);
+  const dayImage = bundleLoader.loadImage(images, `${forecast.Day.Icon}.png`);
+  const nightImage = bundleLoader.loadImage(images, `${forecast.Night.Icon}.png`);
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const dateObject = new Date(forecast.Date)
   const day = days[dateObject.getDay()]
@@ -23,14 +24,14 @@ const DayForecastSimple = props => {
           <div className="sm:w-1/2">
             <p className="font-bold pb-2">Day</p>
             <div className="weather-icon h-20">
-              <img className="mx-auto h-full object-cover" src={loadImage(`${forecast.Day.Icon}.png`)} alt="weather-icon"/>
+              <img className="mx-auto h-full object-cover" src={dayImage} alt="weather-icon"/>
             </div>
             <p>{forecast.Day.IconPhrase}</p>
           </div>
           <div className="hidden md:block md:w-1/2">
             <p className="font-bold pb-2">Night</p>
             <div className="weather-icon h-20">
-              <img className="mx-auto h-full object-cover" src={loadImage(`${forecast.Night.Icon}.png`)} alt="weather-icon"/>
+              <img className="mx-auto h-full object-cover" src={nightImage} alt="weather-icon"/>
             </div>
             <p>{forecast.Night.IconPhrase}</p>
           </div>
