@@ -14,7 +14,7 @@ In the project directory, you can run:
 
 ### `REACT_APP_ACCU_API_KEY=YOUR_ACCUWEATHER_API_KEY yarn start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode with your API key.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
