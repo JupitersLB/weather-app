@@ -6,11 +6,16 @@
     "@craco/craco": "^6.1.1",
     "@icons-pack/react-simple-icons": "^4.1.0",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
+    "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.1.10",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.0",
     "babel-eslint": "^10.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-adapter-react-16.1": "^1.6.4",
     "eslint": "^7.22.0",
     "eslint-plugin-react": "^7.23.1",
+    "jest-enzyme": "^7.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -26,7 +31,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:react-hooks/recommended"
     ]
   },
   "browserslist": {
@@ -42,8 +48,10 @@
     ]
   },
   "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.4",
+    "@tailwindcss/postcss7-compat": "npm:@tailwindcss/postcss7-compat@^2.0.4",
+    "@testing-library/dom": "^7.30.0",
     "autoprefixer": "^9.8.6",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4"
   }

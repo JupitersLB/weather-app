@@ -7,14 +7,14 @@ import { searchLocation,
          fetchCurrentConditions,
          fetchTopFifty,
          fetchHourlyForecast } from './actions/index';
-import sweetError from './components/sweetError';
+import sweetError from './utilities/sweetError';
 import Header from './components/header';
 import DayForecastDetails from './components/dayForecastDetails';
 import ForecastList from './components/forecastList';
 import Footer from './components/footer';
 import './App.css';
 
-function App() {
+const App = () => {
 
   const [ currentConditions, setCurrentConditions ] = useState({});
   const [ hourlyForecast, setHourlyForecast ] = useState('');
@@ -82,13 +82,20 @@ function App() {
       Swal.close();
     })
   }
+  const childProps = {
+    forecastQuery,
+    ...currentConditions,
+  }
+
+  // console.log({...currentConditions});
+  // console.log({...dayForecast});
 
   return (
     <div className="App flex flex-col">
       <Header handleGeoLocation={handleGeoLocation} handleSearch={handleSearch} />
       <div className="forecasts flex-grow">
         <div className="day-forecast">
-          {status === 3 ? <DayForecastDetails query={forecastQuery} current={currentConditions} forecast={dayForecast} /> : ''}
+          {status === 3 ? <DayForecastDetails {...childProps} forecast={dayForecast} /> : ''}
         </div>
         <div className="hourly-forecast pt-3">
           {status === 3 ? <ForecastList forecast={hourlyForecast} type="hours" /> : ''}
