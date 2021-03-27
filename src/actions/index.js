@@ -1,15 +1,8 @@
 import sweetError from '../utilities/sweetError';
+import handleErrors from '../utilities/handleErrors'
 
 const apiKey = process.env.REACT_APP_ACCU_API_KEY
 const baseUrl = 'https://dataservice.accuweather.com/'
-
-const handleErrors = response => {
-  if (!response.ok) {
-    console.log(response)
-    throw Error(response.statusText);
-  }
-  return response.json();
-}
 
 export const searchLocation = location => {
   const queryParams = `apikey=${apiKey}&q=${location}&offset=5`

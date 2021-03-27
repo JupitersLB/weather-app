@@ -13,3 +13,12 @@ const mockGeolocation = {
     })))
 };
 global.navigator.geolocation = mockGeolocation;
+
+jest.mock('./utilities/bundleLoader', () => ({
+  importFiles: () => {
+    return ['cat', 'dog']
+  },
+  loadImage: (images, imageName) => {
+    return "./src/assets/images/cat.png"
+  }
+}))

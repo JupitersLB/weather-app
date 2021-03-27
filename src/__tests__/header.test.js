@@ -5,48 +5,43 @@ import { mount } from 'enzyme';
 import Header from '../components/header';
 import Swal from 'sweetalert2'
 
-test('renders components properly', () => {
-  const handleSearchMock = jest.fn();
-  const handleGeoLocationMock = jest.fn()
+const handleSearchMock = jest.fn();
+const handleGeoLocationMock = jest.fn()
 
-  const { getByText } = render(<Header handleGeoLocation={handleGeoLocationMock} handleSearch={handleSearchMock} />);
+describe('< Header />', () => {
 
-  getByText("JupitersLB Weather App");
-});
+  test('renders components properly', () => {
+    const { getByText } = render(<Header handleGeoLocation={handleGeoLocationMock} handleSearch={handleSearchMock} />);
 
-test('Pressing enter submits value', () => {
+    getByText("JupitersLB Weather App");
+  });
 
-  const handleSearchMock = jest.fn();
-  const handleGeoLocationMock = jest.fn()
+  test('Pressing enter submits value', () => {
+    const query = 'Tokyo'
 
-  const query = 'Tokyo'
+    const wrapper = mount(<Header handleGeoLocation={handleGeoLocationMock} handleSearch={handleSearchMock} />);
 
-  const wrapper = mount(<Header handleGeoLocation={handleGeoLocationMock} handleSearch={handleSearchMock} />);
+    expect(wrapper.find('[htmlFor="new-search"]')).toHaveLength(1)
 
-  expect(wrapper.find('[htmlFor="new-search"]')).toHaveLength(1)
+    const form = wrapper.find('[htmlFor="new-search"]')
+    form.simulate('change', { target: { value: query } })
+    form.simulate('submit')
 
-  const form = wrapper.find('[htmlFor="new-search"]')
-  form.simulate('change', { target: { value: query } })
-  form.simulate('submit')
+    expect(handleSearchMock).toHaveBeenCalledTimes(1);
+  })
 
-  expect(handleSearchMock).toHaveBeenCalledTimes(1);
+  test('clicking on icon searches browser location', () => {
+    const spy = jest.spyOn(Swal, 'fire')
 
-})
+    const wrapper = mount(<Header handleGeoLocation={handleGeoLocationMock} handleSearch={handleSearchMock} />);
 
-test('clicking on icon searches browser location', () => {
+    const icon = wrapper.find('.browser-search-icon');
+    expect(icon).toHaveLength(1)
 
-  const handleSearchMock = jest.fn();
-  const handleGeoLocationMock = jest.fn();
-  const spy = jest.spyOn(Swal, 'fire')
+    icon.simulate('click');
 
-  const wrapper = mount(<Header handleGeoLocation={handleGeoLocationMock} handleSearch={handleSearchMock} />);
+    // handleClick fires a sweetalert while checking for browser location
+    expect(spy).toHaveBeenCalledTimes(1);
 
-  const icon = wrapper.find('.browser-search-icon');
-  expect(icon).toHaveLength(1)
-
-  icon.simulate('click');
-
-  // handleClick fires a sweetalert while checking for browser location
-  expect(spy).toHaveBeenCalledTimes(1);
-
+  })
 })
