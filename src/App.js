@@ -25,14 +25,12 @@ const App = () => {
 
   useEffect(() => {
     console.log(process.env.NODE_ENV);
-    console.log(process.env.REACT_APP_ACCU_API_KEY);
     if (status === null) handlePlacholder()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status])
 
   const handlePlacholder = () => {
     fetchTopFifty().promise.then(r => {
-      console.log(r);
       if (r === undefined) return Promise.reject(sweetError("Error: API has reached its limit"))
       let obj = r[Math.floor(Math.random() *50)];
       handleForecasts(obj.Key);
@@ -62,7 +60,6 @@ const App = () => {
 
   const handleSearch = value => {
     searchLocation(value).promise.then(r => {
-      console.log(r)
       if (r === undefined) {
         sweetError("Error: API has reached its limit")
       } else if (r.length === 0) {
@@ -86,9 +83,6 @@ const App = () => {
     forecastQuery,
     ...currentConditions,
   }
-
-  // console.log({...currentConditions});
-  // console.log({...dayForecast});
 
   return (
     <div className="App flex flex-col">

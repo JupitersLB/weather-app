@@ -3,15 +3,10 @@ import bundleLoader from '../utilities/bundleLoader'
 const DayForecastDetails = props => {
   const { forecastQuery, RelativeHumidity, WeatherIcon, WeatherText, PrecipitationSummary, Wind, UVIndex, RealFeelTemperature, Temperature, forecast } = props;
 
-  console.log(props);
-  console.log(Temperature);
-
   const images = bundleLoader.importFiles()
   const image = bundleLoader.loadImage(images, `${WeatherIcon}.png`);
   const nightImage = bundleLoader.loadImage(images, `${forecast.Night.Icon}.png`);
   const dayImage = bundleLoader.loadImage(images, `${forecast.Day.Icon}.png`);
-  // console.log(images);
-  // const loadImage = imageName => (images(`./${imageName}`).default);
 
   return (
     <div className="weather-card text-purple-500 flex py-3 px-1 rounded-2xl justify-center mx-auto w-5/6  md:w-4/6 lg:w-1/2 bg-opacity-50 bg-indigo-300">
